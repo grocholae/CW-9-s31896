@@ -82,6 +82,13 @@ public class MedicalDbContext : DbContext
                 IdMedicament = 1,
                 Dose = 500,
                 Details = "Before sleep"
+            },
+            new()
+            {
+                IdPrescription = 2,
+                IdMedicament = 2,
+                Dose = null,
+                Details = "Before sleep"
             }
         };
 

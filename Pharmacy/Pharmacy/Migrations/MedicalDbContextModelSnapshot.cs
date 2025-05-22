@@ -242,6 +242,12 @@ namespace Pharmacy.Migrations
                             IdPrescription = 2,
                             Details = "Before sleep",
                             Dose = 500
+                        },
+                        new
+                        {
+                            IdMedicament = 2,
+                            IdPrescription = 2,
+                            Details = "Before sleep"
                         });
                 });
 
@@ -273,7 +279,7 @@ namespace Pharmacy.Migrations
                         .IsRequired();
 
                     b.HasOne("Pharmacy.Models.Prescription", "Prescription")
-                        .WithMany("PrescriptionMedicamets")
+                        .WithMany("PrescriptionMedicaments")
                         .HasForeignKey("IdPrescription")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -300,7 +306,7 @@ namespace Pharmacy.Migrations
 
             modelBuilder.Entity("Pharmacy.Models.Prescription", b =>
                 {
-                    b.Navigation("PrescriptionMedicamets");
+                    b.Navigation("PrescriptionMedicaments");
                 });
 #pragma warning restore 612, 618
         }
