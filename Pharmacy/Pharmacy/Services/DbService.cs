@@ -9,7 +9,7 @@ namespace Pharmacy.Services;
 public interface IDbService
 {
     public Task<PatientGetDto> GetPatientInfoAsync(int patientId);
-    public Task<PrescriptionDto> GetPrescriptionInfoAsync(int Id);
+    public Task<PrescriptionGetDto> GetPrescriptionInfoAsync(int Id);
     public Task <PrescriptionDto> CreatePrescriptionAsync(PrescriptionCreateDto prescription);
 }
 
@@ -56,14 +56,21 @@ public class DbService(MedicalDbContext data) : IDbService
         return result ?? throw new NotFoundException($"Patient with id: {patientId} not found");
     }
 
-    public async Task<PrescriptionDto> GetPrescriptionInfoAsync(int Id)
+    public async Task<PrescriptionGetDto> GetPrescriptionInfoAsync(int Id)
     {
        var result = await data.Prescriptions
-           .Select(s => new PrescriptionDto
+           .Select(s => new PrescriptionGetDto
            {
                IdPrescription = s.IdPrescription,
                Date = s.Date,
                DueDate = s.DueDate,
+               Patient = new PatientDto()
+               {
+                   IdPatient = s.Patient.IdPatient,
+                   FirstName = s.Patient.FirstName,
+                   LastName = s.Patient.LastName,
+                   Birthdate = s.Patient.Birthdate
+               },
                Doctor = new DoctorDto
                {
                    IdDoctor = s.Doctor.IdDoctor,
